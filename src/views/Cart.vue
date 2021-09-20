@@ -14,8 +14,7 @@
               <td>
                 <h5>{{ cart.price }}</h5>
               </td>
-              <!-- <td v-on:click=" setCarts(this.carts.splice(idx, 1))"> -->
-              <td v-on:click="setCarts(deleteCart(idx))">
+              <td v-on:click="deleteCart(cart.id)">
                   <div>hapus</div>
               </td>
             </tr>
@@ -73,15 +72,6 @@ import { mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'Cart',
-  // methods: {
-  //   checkout() {
-  //     return this.$router.push('/checkout')
-  //   },
-  //   removeItem() {
-  //     // Todo: action remove state
-  //     console.log("hapus");
-  //   }
-  // },
   computed: {
     ...mapGetters(['carts']),
   },
@@ -91,14 +81,8 @@ export default {
   methods: {
     ...mapActions([
       'getCarts',
-      'setCarts'
+      'deleteCart'
     ]),
-    deleteCart(idx) {
-      var currentCarts = JSON.parse(JSON.stringify(this.carts))
-      delete currentCarts[idx]; 
-      var currentCartArr = Object.values(currentCarts);
-      return currentCartArr
-    }
   }
 }
 </script>

@@ -11,9 +11,9 @@ mock.onGet("/api/products").reply(200, {
   ...routeMock[0].response.data
 })
 
-mock.onGet("/api/carts").reply(200, {
-  ...routeMock[3].response.data
-})
+mock.onGet("/api/carts").reply(200, 
+  routeMock[3].response.data
+)
 
 const res = routeMock[1]
 mock['on'+ res.method](res.url).reply(res.status, {
@@ -41,6 +41,9 @@ export default new Vuex.Store({
     setCarts (state, value) {
       state.carts = value
     },
+    deleteCart (state, id) {
+      state.carts = state.carts.filter((cart) => cart.id !== id)
+    }
   },
   actions: {
     getProducts ({ commit }) {
@@ -58,9 +61,9 @@ export default new Vuex.Store({
         commit('setCarts', response.data)
       });
     },
-    setCarts ({ commit }, param) {
-        commit('setCarts', param)
-    },
+    deleteCart ({commit}, id) {
+      commit('deleteCart', id)
+    }
   },
   getters: {
     products: state => state.products,
